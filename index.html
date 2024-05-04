@@ -28,6 +28,7 @@
             padding: 10px;
             background-color: #f9f9f9;
             border-radius: 3px;
+            position: relative;
         }
         .tarefa-concluida {
             text-decoration: line-through;
@@ -39,7 +40,20 @@
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 3px;
-            float: right;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+        .botao-concluir {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            position: absolute;
+            top: 5px;
+            right: 70px;
         }
     </style>
 </head>
@@ -48,6 +62,8 @@
         <h1>Sistema de Gerenciamento de Tarefas</h1>
         <h2>Lista de Tarefas</h2>
         <div id="lista-tarefas"></div>
+        <h2>Tarefas Concluídas</h2>
+        <div id="tarefas-concluidas"></div>
         <form id="form-adicionar">
             <input type="text" id="nova-tarefa" placeholder="Adicionar nova tarefa..." required>
             <button type="submit">Adicionar</button>
@@ -57,28 +73,40 @@
     <script>
         // Array para armazenar as tarefas
         let tarefas = [];
+        let tarefasConcluidas = [];
 
         // Função para renderizar a lista de tarefas na página
         function renderizarTarefas() {
             const listaTarefas = document.getElementById("lista-tarefas");
+            const listaTarefasConcluidas = document.getElementById("tarefas-concluidas");
             listaTarefas.innerHTML = "";
+            listaTarefasConcluidas.innerHTML = "";
 
             tarefas.forEach((tarefa, index) => {
                 const tarefaElemento = document.createElement("div");
                 tarefaElemento.textContent = tarefa.descricao;
                 if (tarefa.concluida) {
                     tarefaElemento.classList.add("tarefa-concluida");
+                    listaTarefasConcluidas.appendChild(tarefaElemento);
+                } else {
+                    const botaoConcluir = document.createElement("button");
+                    botaoConcluir.textContent = "Concluir";
+                    botaoConcluir.classList.add("botao-concluir");
+                    botaoConcluir.addEventListener("click", () => {
+                        marcarComoConcluida(index);
+                    });
+
+                    const botaoRemover = document.createElement("button");
+                    botaoRemover.textContent = "Remover";
+                    botaoRemover.classList.add("botao-remover");
+                    botaoRemover.addEventListener("click", () => {
+                        removerTarefa(index);
+                    });
+
+                    tarefaElemento.appendChild(botaoConcluir);
+                    tarefaElemento.appendChild(botaoRemover);
+                    listaTarefas.appendChild(tarefaElemento);
                 }
-
-                const botaoRemover = document.createElement("button");
-                botaoRemover.textContent = "Remover";
-                botaoRemover.classList.add("botao-remover");
-                botaoRemover.addEventListener("click", () => {
-                    removerTarefa(index);
-                });
-
-                tarefaElemento.appendChild(botaoRemover);
-                listaTarefas.appendChild(tarefaElemento);
             });
         }
 
@@ -91,6 +119,12 @@
         // Função para remover uma tarefa
         function removerTarefa(index) {
             tarefas.splice(index, 1);
+            renderizarTarefas();
+        }
+
+        // Função para marcar uma tarefa como concluída
+        function marcarComoConcluida(index) {
+            tarefas[index].concluida = true;
             renderizarTarefas();
         }
 
