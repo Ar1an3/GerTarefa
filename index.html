@@ -28,12 +28,13 @@
             padding: 10px;
             background-color: #f9f9f9;
             border-radius: 3px;
-            position: relative;
+            position: relative; /* Alterado para relative */
         }
         .tarefa-concluida {
             text-decoration: line-through;
         }
-        .botao-remover {
+        .botao-remover,
+        .botao-concluir {
             background-color: #dc3545;
             color: #fff;
             border: none;
@@ -41,19 +42,13 @@
             cursor: pointer;
             border-radius: 3px;
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px; /* Ajustado para 10px */
         }
         .botao-concluir {
             background-color: #28a745;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            position: absolute;
-            top: 5px;
-            right: 35px;
+            right: 60px; /* Ajustado para 60px */
         }
     </style>
 </head>
@@ -85,6 +80,7 @@
             tarefas.forEach((tarefa, index) => {
                 const tarefaElemento = document.createElement("div");
                 tarefaElemento.textContent = tarefa.descricao;
+                tarefaElemento.classList.add("tarefa");
                 if (tarefa.concluida) {
                     tarefaElemento.classList.add("tarefa-concluida");
                     listaTarefasConcluidas.appendChild(tarefaElemento);
