@@ -59,7 +59,7 @@
 
     <script>
         // Array para armazenar as tarefas
-        let tarefas = [];
+        let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
         let tarefasConcluidas = [];
 
         // Função para renderizar a lista de tarefas na página
@@ -93,12 +93,14 @@
         // Função para adicionar uma nova tarefa
         function adicionarTarefa(descricao) {
             tarefas.push({ descricao, concluida: false });
+            localStorage.setItem('tarefas', JSON.stringify(tarefas));
             renderizarTarefas();
         }
 
         // Função para marcar uma tarefa como concluída
         function marcarComoConcluida(index) {
             tarefas[index].concluida = true;
+            localStorage.setItem('tarefas', JSON.stringify(tarefas));
             renderizarTarefas();
         }
 
@@ -112,9 +114,7 @@
         });
 
         // Exemplo de tarefas iniciais (você pode carregar essas informações do servidor)
-        adicionarTarefa("Estudar para a prova de matemática");
-        adicionarTarefa("Enviar relatório semanal");
-        adicionarTarefa("Reunião com equipe de desenvolvimento");
+        renderizarTarefas();
     </script>
 </body>
 </html>
