@@ -21,11 +21,12 @@ h1 {
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 3px;
+    position: relative;
 }
 .tarefa-concluida {
     text-decoration: line-through;
 }
-.botao-concluir {
+.botao-concluir, .botao-editar {
     background-color: #28a745;
     color: #fff;
     border: none;
@@ -33,5 +34,21 @@ h1 {
     cursor: pointer;
     border-radius: 3px;
     float: right;
-    margin-right: 5px;
+    margin-left: 5px;
+}
+.botao-editar {
+    background-color: #007bff;
+}
+.botao-remover {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+}
+#progresso {
+    margin-top: 20px;
+    text-align: center;
 }
