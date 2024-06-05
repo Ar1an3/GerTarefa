@@ -1,52 +1,54 @@
-// para armazenar as tarefas
-let tarefas = [];
-let tarefasConcluidas = [];
-
-// Função para renderizar a lista de tarefas na página
-function renderizarTarefas() {
-    const listaTarefas = document.getElementById("lista-tarefas");
-    const listaTarefasConcluidas = document.getElementById("tarefas-concluidas");
-    listaTarefas.innerHTML = "";
-    listaTarefasConcluidas.innerHTML = "";
-
-    tarefas.forEach((tarefa, index) => {
-        const tarefaElemento = document.createElement("div");
-        tarefaElemento.textContent = tarefa.descricao;
-        tarefaElemento.classList.add("tarefa");
-        if (tarefa.concluida) {
-            tarefaElemento.classList.add("tarefa-concluida");
-            listaTarefasConcluidas.appendChild(tarefaElemento);
-        } else {
-            const botaoConcluir = document.createElement("button");
-            botaoConcluir.textContent = "Concluir";
-            botaoConcluir.classList.add("botao-concluir");
-            botaoConcluir.addEventListener("click", () => {
-                marcarComoConcluida(index);
-            });
-
-            tarefaElemento.appendChild(botaoConcluir);
-            listaTarefas.appendChild(tarefaElemento);
-        }
-    });
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
-
-// adicionar uma nova tarefa
-function adicionarTarefa(descricao) {
-    tarefas.push({ descricao, concluida: false });
-    renderizarTarefas();
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
-// marcar uma tarefa como concluída
-function marcarComoConcluida(index) {
-    tarefas[index].concluida = true;
-    renderizarTarefas();
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
-
-// envio do formulário para adicionar uma nova tarefa
-document.getElementById("form-adicionar").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const novaTarefaInput = document.getElementById("nova-tarefa");
-    const descricao = novaTarefaInput.value;
-    adicionarTarefa(descricao);
-    novaTarefaInput.value = "";
-});
+.tarefa {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+    position: relative;
+}
+.tarefa-concluida {
+    text-decoration: line-through;
+}
+.botao-concluir, .botao-editar {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+    margin-left: 5px;
+}
+.botao-editar {
+    background-color: #007bff;
+}
+.botao-remover {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+}
+#progresso {
+    margin-top: 20px;
+    text-align: center;
+}
